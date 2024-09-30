@@ -1,0 +1,328 @@
+## Programovací jazyk
+
+Jak jsme již v předchozí kapitole zmínili, v tomto kurzu budeme
+programovat v omezené podmnožině jazyka Python. Každá kapitola
+v úvodní části představí všechny jazykové prostředky, které dosud
+neznáte.
+
+### Výrazy
+
+Výrazy v Pythonu intuitivně odpovídají výrazům, které znáte
+z matematiky: skládají se z «konstant», «proměnných», «operátorů»,
+závorek a «volání funkcí» (o funkcích detailněji níže). Každý výraz
+má «hodnotu», a smyslem výrazů je kompaktně popsat výpočet této
+hodnoty. Příklady:
+
+    a + 7
+    4
+    3 + 3 * 2
+    (3 + 3) * 2
+    a + 1 > 7
+    count ** 2 < 100
+
+K dispozici máme tyto základní «binární» operátory (mají vždy dva
+operandy):
+
+ • aritmetické (odpovídají obvyklým matematickým operacím):
+   ◦ ‹a + b›, ‹a - b› – sčítání a odečítání,
+   ◦ ‹a * b› – násobení,
+   ◦ ‹a // b›, ‹a % b› – celočíselné dělení a zbytek po dělení
+     (připouštíme pouze pro dva celočíselné operandy),
+   ◦ ‹a / b› – dělení s desetinným výsledkem (naopak připouštíme
+     pouze v případě, kdy alespoň jedno z ‹a›, ‹b› je číslo
+     s plovoucí desetinnou čárkou – ‹float›),
+   ◦ ‹a ** b› – mocnění ⟦aᵇ⟧,
+ • relační (význam opět známe z matematiky):
+   ◦ ‹a == b› – rovnost,
+   ◦ ‹a != b› – různost / nerovnost,
+   ◦ ‹a > b›, ‹a < b› – ostré nerovnosti,
+   ◦ ‹a >= b›, ‹a <= b› – neostré nerovnosti,
+ • logické (odpovídají logickým spojkám):
+   ◦ ‹a and b› – logická konjunkce: platí ‹a› a ‹b› zároveň
+     (vyhodnotí-li se ‹a› na ‹False›, podvýraz ‹b› «nebude
+     vůbec vyhodnocen» protože již nemůže výsledek ovlivnit),
+   ◦ ‹a or b› – logická disjunkce: platí alespoň jedno z ‹a›, ‹b›
+     (podobně, vyhodnotí-li se ‹a› na ‹True›, podvýraz ‹b› se
+     «nevyhodnocuje»).
+
+Navíc jsou k dispozici dva «unární» operátory (mají pouze jeden
+operand):
+
+ • ‹-a› – opačná hodnota,
+ • ‹not a› – logická negace.
+
+Výrazem je také tzv. «ternární operátor», který má podobu ‹x if cond
+else y› – vyhodnotí-li se podvýraz ‹cond› na pravdivou hodnotu,
+celý výraz se vyhodnotí na výsledek podvýrazu ‹x›, v opačném případě
+na výsledek ‹y› (nepoužitý podvýraz se «nevyhodnocuje»).
+
+Několik dalších operátorů (resp. nových významů stejných operátorů)
+ještě přibude v příštích týdnech.
+
+### Příkazy
+
+Dalším stavebním prvkem programu je «příkaz», který odpovídá pokynu
+k provedení nějaké akce. Nejjednodušším příkazem je «libovolný
+výraz» (užitečnost takových příkazů úzce souvisí s funkcemi, které
+nejsou čisté, obzvláště pak s «procedurami»). Efektem takového
+příkazu je, že program vypočte jeho hodnotu a pak ji zapomene.
+
+Druhým základním typem příkazu je «přiřazení», které podobně jako
+v předchozím případě «vypočte hodnotu» výrazu, ale na rozdíl od
+předchozího si ji zároveň «zapamatuje» a «pojmenuje». Takto
+pojmenovanou hodnotu – «proměnnou» – pak můžeme s výhodou použít
+v pozdějších výrazech.¹ V obou případech platí, že 1 řádek = 1
+příkaz.
+
+Přiřazení zapisujeme jako ‹jméno = výraz›, například:
+
+    a = 2                                     # python
+    b = a + 1
+    b = -b
+    average = (a + b) / 2
+    positive = a > 0
+
+Krom obyčejného přiřazení můžeme použít ještě tzv. «složené
+přiřazení», které umožňuje zápis některých častých operací zkrátit.
+Tato složená přiřazení zapisujeme (věnujte pozornost závorkám a
+rozdílu mezi ‹/› a ‹//›):
+
+ │ složené přiřazení │ ekvivalentní zápis │
+ ├◅┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┼◅┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄│
+ │ ‹a += 2›          │ ‹a = a + 2›        │
+ │ ‹x -= 2 * b›      │ ‹x = x - (2 * b)›  │
+ │ ‹a *= b + 2›      │ ‹a = a * (b + 2)›  │
+ │ ‹x /= a + b›      │ ‹x = x / (a + b)›  │
+ │ ‹x //= 3›         │ ‹x = x // 3›       │
+
+«Pozor!» Znak ‹=› v přiřazení «není operátor» a přiřazení «není
+výraz» – např. zápis ‹(a = b) + 3› nepřipouštíme.
+
+Posledním typem příkazu, který zde uvedeme, je tzv. «tvrzení», které
+vyhodnotí zadaný výraz a je-li tento pravdivý, neudělá nic.
+V opačném případě ukončí program s chybou. Příklad:
+
+    assert x > 0
+
+Tento příkaz budete prozatím potkávat zejména v přiložených testech.
+
+¹ Samotné přiřazení nijak s hodnotami nemanipuluje, zejména je
+  nevytváří ani nekopíruje. Význam přiřazení je skutečně pouze
+  «pojmenování» hodnoty, která už musí existovat (obvykle jako
+  výsledek vyhodnocení výrazu). Prozatím tento rozdíl není příliš
+  důležitý – na chování programů začne mít dopad až ve třetí
+  kapitole, kdy do jazyka přidáme složené typy. «Pozor:» některé
+  programovací jazyky dávají přiřazení úplně jiný význam!
+
+### Řízení toku
+
+Krom výpočtu a zapamatování si hodnot potřebujeme pro zápis
+algoritmů ještě «rozhodování» a «opakování». K tomu slouží «příkazy
+toku řízení», konkrétně ‹if›, ‹for› a ‹while›.
+
+Příkaz ‹if› realizuje rozhodnutí na základě «pravdivostní hodnoty»
+(výrazu). Nejjednodušší forma je:
+
+    if podmínka₁:                                # python
+        příkaz₁
+        …
+        příkazₙ
+
+Význam tohoto zápisu je: vypočti hodnotu «výrazu» ‹podmínka₁› a
+je-li výsledek pravdivý, proveď «příkazy» ‹příkaz₁› až ‹příkazₙ›,
+jinak nedělej nic (výpočet pak pokračuje dalším příkazem
+v sekvenci). Příkaz ‹if› lze rozšířit o tzv. ‹else› větev:
+
+    if podmínka₁:                                # python
+        příkazy₁
+    else:
+        příkazy₂
+
+který se chová stejně, ale v případě, že podmínka splněna nebyla,
+ještě vykoná příkazy z posloupnosti ‹příkazy₂›. Konečně nejobecnější
+podoba podmíněného příkazu je (vpravo ekvivalentní zápis pomocí
+výše uvedené formy):
+
+    if podmínka₁:       ⋅  if podmínka₁:         # python
+        příkazy₁        ⋅      příkazy₁
+    elif podmínka₂:     ⋅  else:
+        příkazy₂        ⋅      if podmínka₂:
+                        ⋅         příkazy₂
+    elif podmínka₃:     ⋅      else:
+        příkazy₃        ⋅         if podmínka₃:
+                        ⋅             příkazy₃
+    else:               ⋅         else:
+        příkazy₄        ⋅             příkazy₄
+
+přičemž větví ‹elif› může být libovolný počet.
+
+Pro «opakování» nějaké posloupnosti příkazů slouží «cykly», které
+jsou dvojího typu: ‹for› a ‹while›. Cyklus ‹for› použijeme
+v případě, kdy předem známe počet «iterací» (opakování), které
+chceme provést:
+
+    for jméno in rozsah:                        # python
+        příkazy
+
+kde ‹rozsah› může být:
+
+ • ‹range(počet)› – vypočte hodnotu «výrazu» ‹počet› a provede
+   sekvenci ‹příkazy› právě ‹počet›-krát (‹jméno› je v ⟦i⟧-té
+   iteraci vázáno na hodnotu ⟦i⟧),
+ • ‹range(od, do)› – vypočte hodnoty ⟦n₁, n₂⟧ «výrazů» ‹od›, ‹do› a
+   provede sekvenci ‹příkazy› pro hodnoty ⟦i ∈ ⟨n₁, n₂)⟧ (‹jméno› je
+   přitom opět vázáno na hodnotu ⟦i⟧),
+ • ‹range(od, do, krok)› – podobně jako předchozí, ale provede
+   sekvenci pro hodnoty ⟦i ∈ I ∩ { n₁ + js | j ∈ ℕ₀ }⟧ kde:
+   ◦ ⟦s⟧ je výsledek vyhodnocení výrazu ‹krok›,
+   ◦ ⟦I⟧ je ⟦⟨n₁, n₂)⟧ pro ⟦n₁ ≤ n₂⟧ nebo ⟦(n₂, n₁⟩⟧ jinak
+   a ‹jméno› je vázáno na hodnoty ⟦i⟧ v «pořadí stoupajícího ⟦j⟧».
+
+Naopak cyklus ‹while› použijeme v situaci, kdy umíme «výrazem» popsat,
+chceme-li «provést další iteraci»:
+
+    while podmínka:                             # python
+        příkazy
+
+nejprve vyhodnotí «výraz» ‹podmínka›. Je-li hodnota pravdivá,
+provede ‹příkazy› a výraz ‹podmínka› «opět vyhodnotí». Cyklus je
+ukončen v okamžiku, kdy se ‹podmínka› vyhodnotí jako nepravdivá
+(v takovém případě už se ‹příkazy› neprovedou, může tedy nastat
+situace, kdy se ‹příkazy› neprovedou «ani jednou»).
+
+Kdekoliv v «těle cyklu» (ale nikde jinde) se mohou objevit ještě
+příkazy ‹break› a ‹continue› (vztahují se k rozsahem nejmenšímu
+cyklu, v kterého těle jsou obsaženy – tzn. k „nejvnitřnějšímu“
+aktivnímu cyklu) a mají následovný význam:
+
+ • ‹continue› okamžitě ukončí probíhající iteraci: program pokračuje
+   další iterací (není-li to možné, cyklus je na tomto místě
+   ukončen),
+ • ‹break› okamžitě ukončí vykonávání cyklu.
+
+### Podprogramy
+
+Podprogramy jsou základním stavebním prvkem složitějších programů.
+Podprogram (v Pythonu také zvaný «funkce») zastřešuje ucelený úsek
+kódu, který má navíc název, parametry a návratovou hodnotu.
+Podprogram «definujeme» následujícím zápisem:
+
+    def podprogram(parametr₁, parametr₂, …, parametrₙ): # python
+        příkaz₁
+        …
+        příkazₙ
+
+kde ‹podprogram› je «jméno», ‹parametr₁› až ‹parametrₙ› jsou «jména»
+tzv. «formálních parametrů» a ‹příkaz₁› až ‹příkazₙ› jsou sekvencí
+příkazů, které tvoří tzv. «tělo podprogramu».
+
+V podprogramu se krom už známých příkazů může objevit příkaz ‹return
+výsledek›, který jeho vykonávání «ukončí» a určí «návratovou
+hodnotu» (výsledek), kterou získá vyhodnocením «výrazu» ‹výsledek›.
+
+Chceme-li již definovaný podprogram (funkci) použít, slouží k tomu
+tzv. «volání funkce». Volání je «výraz», a zapisuje se následovně:
+
+    podprogram(výraz₁, výraz₂, …, výrazₙ)
+
+Zde ‹podprogram› je «jméno» a ‹výraz₁› až ‹výrazₙ› jsou tzv.
+«skutečné parametry». Protože se jedná o výraz, má «hodnotu», která
+odpovídá návratové hodnotě podprogramu (příkazu ‹return›, kterým byl
+ukončen). S touto hodnotou můžeme pracovat jako s libovolným jiným
+výrazem:
+
+    výsledek₁ = funkce(3, 4)                   # python
+    výsledek₂ = 1 + 2 * funkce(3, 4)
+    výsledek₃ = funkce(funkce(1, 2), 3)
+
+Význam použití podprogramu (volání funkce) je následovný:
+
+ • jménům ze seznamu formálních parametrů jsou přiřazeny «hodnoty»,
+   které vzniknou vyhodnocením výrazů ‹výraz₁› až ‹výrazₙ›,
+ • provede se «tělo» podprogramu (sekvence příkazů ‹příkaz₁› až
+   ‹příkazₙ›),
+ • «návratová hodnota» se použije jako výsledek celého podvýrazu
+   volání funkce a pokračuje se vyhodnocováním celého výrazu, ve
+   kterém bylo volání obsaženo.
+
+### Zabudované podprogramy
+
+Krom podprogramů, které si sami definujete, můžete využívat několik
+takových, které jsou v jazyce «zabudované» (jsou součástí jazyka).
+Seznam těchto podprogramů budeme během semestru postupně rozšiřovat.
+Prozatím jsou to tyto (všechny zde uvedené podprogramy jsou zároveň
+«čisté funkce»):
+
+ • ‹min(a, b)› a ‹max(a, b)›: vybere nejmenší, resp. největší
+   hodnotu mezi svými parametry,
+ • ‹abs(x)›: spočte absolutní hodnotu parametru ‹x›,
+ • ‹round(x)›: pro desetinné číslo ‹x› se vyhodnotí na nejbližší
+   celé číslo (hodnoty přesně mezi se zaokrouhlí na nejbližší sudé
+   číslo),
+ • ‹float(x)›: pro celé číslo ‹x› se vyhodnotí na odpovídající číslo
+   s plovoucí desetinnou čárkou (v případě, že konverzi provést
+   nelze, protože ‹x› příliš velké, je program ukončen s chybou).
+
+Dále máte k dispozici «proceduru» ‹print›, kterou si můžete pomoct
+při programování, ale kterou jinak v tomto kurzu budeme potřebovat
+jen výjimečně.
+
+### Knihovny
+
+Pomocí příkazu (píšeme vždy na začátek programu)
+
+    from module import name₁, name₂, …
+
+můžeme požádat o zpřístupnění podprogramů nebo konstant ‹name₁›,
+‹name₂› atd. z «knihovny» ‹module›. V této chvíli můžete používat
+pouze tyto «čisté funkce», které realizují výpočet «funkcí»
+v matematickém smyslu, a konstanty z knihovny ‹math›:
+
+ • ‹pi› – číslo ⟦π⟧ (poměr obvodu a průměru kružnice),
+ • goniometrické a cyklometrické funkce:
+   ◦ ‹cos(x)›, ‹sin(x)›, ‹tan(x)› – známé goniometrické funkce
+     (parametr ‹x› je zadán v «radiánech»),
+   ◦ ‹acos(x)›, ‹asin(x)› – cyklometrické (inverzní trigonometrické)
+     funkce, vstupem je reálné číslo intervalu ⟦⟨-1, 1⟩⟧ a výsledkem
+     je odpovídající úhel z intervalu ⟦⟨0, π⟩⟧,
+   ◦ ‹atan(x)› – inverzní funkce k funkci ‹tan› (vstupem je
+     libovolné reálné číslo, výsledkem úhel z intervalu ⟦(-π/2,
+     π/2)⟧,
+   ◦ ‹atan2(y, x)› – úhel svíraný x-ovou osou a polopřímkou
+     z počátku, která prochází bodem ⟦(x, y)⟧, v rozsahu ⟦(-π, π⟩⟧,
+ • funkce pro převod úhlů:
+   ◦ ‹radians(x)› – stupně na radiány a
+   ◦ ‹degrees(x)› – radiány na stupně,
+ • funkce pro výpočet kořenů:
+   ◦ ‹sqrt(x)› – druhá odmocnina reálného čísla ‹x› a
+   ◦ ‹isqrt(x)› – největší celé číslo menší rovno odmocnině ‹x›,
+ • funkce pro převod reálných čísel na celá (viz též zabudovanou
+   funkci ‹round› uvedenou výše):
+   ◦ ‹trunc(x)› – ořezání desetinné části,
+   ◦ ‹floor(x)› – největší celé číslo ≤ ‹x›,
+   ◦ ‹ceil(x)› – nejmenší celé číslo ≥ ‹x›,
+ • funkce ‹isclose(x, y)› která realizuje „přibližnou rovnost“ čísel
+   s plovoucí desetinnou čárkou.
+
+### Shrnutí
+
+K dispozici tedy máme:
+
+ • výrazy:
+   ◦ konstanty a proměnné,
+   ◦ operátory pro aritmetiku, srovnání, logické spojky,
+   ◦ použití podprogramů (volání funkcí),
+ • příkazy:
+    ◦ přiřazení,
+    ◦ podmínku ‹if›, (‹elif›, ‹else›),
+    ◦ cykly ‹for› a ‹while›,
+    ◦ tvrzení ‹assert›, 
+ • definice vlastních podprogramů ‹def›,
+ • zabudované čisté funkce ‹min›, ‹max›, ‹abs›, ‹round›
+ • zabudovanou proceduru ‹print›,
+ • knihovnu ‹math› s konstantou ‹pi› a čistými funkcemi:
+   ◦ ‹cos›, ‹sin›, ‹tan›, ‹acos›, ‹asin›, ‹atan›, ‹atan2›,
+   ◦ ‹radians›, ‹degrees›,
+   ◦ ‹sqrt›, ‹isqrt›,
+   ◦ ‹trunc›, ‹floor›, ‹ceil›,
+   ◦ ‹isclose›.

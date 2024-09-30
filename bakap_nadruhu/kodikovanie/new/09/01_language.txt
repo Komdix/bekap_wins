@@ -1,0 +1,17 @@
+## Programovací jazyk
+
+Tato kapitola přináší do jazyka dva nové prvky, které oba souvisí
+s typy:
+
+ 1. Typovou anotaci ‹typ₁ | typ₂ | … | typₙ›, která realizuje tzv.
+    «součtové typy», kdy o nějaké hodnotě umíme říct, že je určitě
+    některého z vyjmenovaných typů, ale který konkrétně to bude se
+    rozhodne až za běhu programu.
+ 2. Zabudovaný predikát ‹isinstance(value, type)›, který rozhodne,
+    je-li hodnota ‹value› typu ‹type›. Tento predikát lze s výhodou
+    použít v kombinaci se součtovými typy, kdy se v programu
+    potřebujeme rozhodnout podle skutečného typu hodnoty ‹value›.
+    
+    V těle podmíněného příkazu ‹if isinstance(value, type)› pak
+    platí, že hodnota ‹value› má i staticky (tzn. pro účely typové
+    kontroly programem ‹mypy›) přiřazen typ ‹type›.

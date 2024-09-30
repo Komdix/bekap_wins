@@ -1,0 +1,139 @@
+## Programovací jazyk
+
+Tato kapitola přidává dva nové typy složených hodnot:¹
+
+ • «množina» – ‹set› – podobně jako seznam obsahuje vnitřní hodnoty,
+   s tím rozdílem, že v množině nemají hodnoty pevně určené pořadí,
+   a každá se v dané množině může objevit nejvýše jednou,
+ • «slovník» – ‹dict› – obsahuje «klíče» (podobně jako v množině se
+   daný klíč může objevit nejvýše jednou) a ke každému klíči právě
+   jednu «přidruženou hodnotu» (obvykle nazýváme prostě «hodnota», a
+   mluvíme o dvojicích klíč – hodnota).
+
+Pro hodnoty, které vkládáme do množin, nebo je používáme jako klíče
+ve slovníku, platí důležité omezení: taková hodnota «nesmí» mít
+vnitřní přiřazení, ani jiné operace, které mohou vnitřně danou
+hodnotu změnit. Zejména tedy nelze takto používat «seznamy», ale ani
+slovníky nebo množiny. Přípustná jsou naopak zejména celá čísla,
+řetězce a n-tice z nich složené.
+
+S novými typy hodnot přidáváme i nové tvary výrazů (literály,
+přístup k přidruženým hodnotám, množinové operace) a příkazů
+(přiřazení, ‹for› cyklus) a nové zabudované podprogramy.
+
+¹ Výše zmíněný «zásobník» nemá samostatný datový typ: lze jej přímo
+  reprezentovat pomocí seznamu.
+
+### Literály
+
+Jak jsme již zvyklí, hodnoty typu «množina» a «slovník» můžeme do
+programu zapsat pomocí speciálních výrazů – literálů (podobně jako
+tomu bylo u seznamů, n-tic a řetězců). Tyto literály mají tvar:
+
+ • ‹{}› je «prázdný slovník» (pozor, nikoliv množina!),
+ • ‹{klíč₁: hodnota₁, klíč₂: hodnota₂, …}› je «slovník», kde ‹klíčᵢ›
+   jsou «výrazy», kterých vyhodnocením vzniknou «klíče», přičemž
+   vyhodnocením výrazu ‹hodnotaᵢ› vznikne vždy hodnota přidružená
+   odpovídajícímu klíči (vyhodnotí-li se dva různé výrazy ‹klíčᵢ› na
+   stejný výsledek, použije se dvojice více vpravo),
+ • ‹{hodnota₁, hodnota₂, …}› reprezentuje «množinu» s prvky, které
+   vzniknou vyhodnocením «výrazů» ‹hodnotaᵢ›.
+
+Prázdná množina literál nemá. Chceme-li vytvořit prázdnou množinu,
+použijeme k tomu zabudovanou funkci ‹set()› bez parametrů.
+
+### Výrazy
+
+Přístup k přidružené hodnotě uložené ve slovníku² zapisujeme výrazem
+tvaru ‹slovník[klíč]›, kde:
+
+ • ‹slovník› je «výraz» který se vyhodnotí na hodnotu typu slovník a
+ • ‹klíč› je «výraz», který je nejprve vyhodnocen, poté je výsledná
+   hodnota ve slovníku vyhledána,
+ • výraz ‹slovník[klíč]› jako celek se pak vyhodnotí na odpovídající
+   přidruženou hodnotu byl-li klíč ve slovníku nalezen, v opačném
+   případě je program ukončen s chybou.
+
+Oproti seznamům jsou jak množiny tak slovníky vybaveny «efektivním»
+dotazem na přítomnost prvku (u slovníku klíče), a to výrazy tvaru:
+
+    hodnota in množina                              # python
+    klíč in slovník
+
+kde ‹hodnota›, ‹množina›, ‹klíč› a ‹slovník› jsou «podvýrazy» a
+výsledkem je «pravdivostní hodnota».
+
+² Zápis je analogický k indexaci seznamů a řetězců. Oproti těmto
+  již známým typům ale slovníky „indexujeme“ «klíčem», který
+  «nemusí» být celé číslo, a i v případě, kdy jím celé číslo je,
+  «nemusí» klíče tvořit spojitou řadu začínající nulou. Množinu ani
+  frontu indexovat nelze.
+
+### Zabudované podprogramy
+
+Objekty typu «slovník» mají tyto zabudované metody:
+
+ • ‹d.keys()› – výsledkem je speciální hodnota, kterou lze pouze
+   iterovat nebo převést na seznam (viz níže), a která obsahuje
+   pouze klíče ve slovníku přítomné (bez přidružených hodnot),
+ • ‹d.values()› – analogicky, ale pro přidružené hodnoty,
+ • ‹d.items()› – taktéž, ale obsahuje dvojice (klíč, hodnota),
+ • ‹d.get(k)› nebo ‹d.get(k, fallback)› – vyhledá klíč ‹k›
+   v slovníku, a vyhodnotí se na odpovídající hodnotu, je-li tato
+   přítomna, jinak na ‹None› (první tvar) nebo na ‹fallback› (druhý
+   tvar),
+ • ‹d.pop(k)› – odstraní ze slovníku klíč ‹k› (včetně přidružené
+   hodnoty),
+ • ‹d.copy()› – vytvoří kopii slovníku.
+
+Objekty typu «množina» pak mají tyto zabudované metody:
+
+ • ‹s.add(v)› – vloží do množiny hodnotu ‹v› (byla-li již přítomna,
+   nestane se nic),
+ • ‹s.remove(v)› – odstraní hodnotu ‹v› (není-li hodnota přítomna,
+   program je ukončen s chybou),
+
+Pro vytváření hodnot přidáváme několik zabudovaných «čistých
+funkcí»:
+
+ • ‹list(x)› – převede hodnotu ‹x› na seznam, kde ‹x› může být:
+   ◦ množina,
+   ◦ fronta,
+   ◦ výsledek volání ‹d.keys()›, ‹d.values()› nebo ‹d.items()› na
+     slovníku ‹d›,
+ • ‹set()› – vytvoří prázdnou množinu,
+ • ‹set(l)› – převede seznam ‹l› na množinu,
+ • ‹dict(l)› – převede seznam dvojic ‹l› na slovník.
+
+### Příkazy
+
+Pro práci s prvky množin a s klíči, hodnotami a dvojicemi (klíč,
+hodnota) ve slovníku lze použít ‹for› cykly těchto tvarů:
+
+    for vazby in množina:                           # python
+        příkazy
+    
+    for vazby in slovník.keys():
+        příkazy
+    
+    for vazby in slovník.items():
+        příkazy
+    
+    for vazby₁, vazby₂ in slovník.items():
+        příkazy
+
+Kde ‹vazby› je vždy buď «jméno» nebo «rozbalení» a ‹množina› a
+‹slovník› jsou «výrazy». V posledním uvedeném případě je nutné
+případné rozbalení uzávorkovat, například:
+
+    for shape, (x, y) in centers.items():           # python
+        pass
+
+Posledním novým prvkem je vnitřní přiřazení do slovníku:
+
+    slovník[klíč] = hodnota                         # python
+
+kde ‹slovník›, ‹klíč› i ‹hodnota› jsou «výrazy». Byl-li ‹klíč› již
+ve slovníku přítomen, jeho přidružená hodnota se změní na výsledek
+vyhodnocení výrazu ‹hodnota›. V opačném případě je klíč do slovníku
+přidán (pozor, v tomto se slovníky liší od seznamů).

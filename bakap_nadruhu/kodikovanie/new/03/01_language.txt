@@ -1,0 +1,222 @@
+## Programovací jazyk
+
+Tato kapitola přidává do našeho jazyka důležité prostředky pro popis
+a práci se složenými datovými typy (doteď jsme pracovali pouze
+s čísly a logickými hodnotami). Protože složená data jsou «hodnoty»,
+podobně jako čísla, většina změn se bude týkat «výrazů». Mezi
+příkazy se objeví nová varianta cyklu ‹for› (pro procházení seznamu)
+a nové varianty «přiřazení».
+
+### Literály
+
+Literály jsou typem «výrazů». V této kapitole se objeví dva typy
+literálů: «seznamový literál» a «literál n-tice».
+
+«Seznamový literál» má tvar ‹[výraz₁, výraz₂, …, výrazₙ]› (výrazy
+oddělené čárkami, uzavřené do hranatých závorek) a jeho významem je
+seznam, který má na indexu ⟦i⟧ hodnotu, která vznikla vyhodnocením
+výrazu ‹výrazᵢ›. Výrazů může být libovolný počet, včetně nuly
+(v takovém případě má výraz podobu ‹[]› a jeho hodnotou je prázdný
+seznam). Příklady:
+
+    [1]                                          # python
+    []
+    [1, 3, 2]
+    [[1, 2], [2, 3]]
+    [4, a + 1, f(3)]
+    [1, numbers[3]]
+    [(0, 1), (1, 1), (2, 1)]
+
+Podobně, ale s kulatými závorkami, zapisujeme «literál n-tice»; ten
+má 3 možné podoby:
+
+ • ‹()› označuje prázdnou n-tici,
+ • ‹(výraz,)› označuje 1-tici (všimněte si koncové čárky),
+ • ‹(výraz₁, výraz₂, …, výrazₙ)› pro ⟦n ≥ 2⟧.
+
+Význam je analogický jako v případě seznamu. V některých případech
+lze kulaté závorky v zápisu n-tice vynechat, je-li takový zápis
+jednoznačný (podobně jako lze vynechat některé závorky
+v aritmetických výrazech). Můžeme tedy psát např. (vpravo
+ekvivalentní zápis s vypsanými závorkami):
+
+    return 1, 2           ⋅  return (1, 2)     # python
+    x = 7, a + 1          ⋅  x = (7, a + 1)
+    a = x + 1, f(3), 7    ⋅  a = (x + 1, f(3), 7)
+
+Ve všech uvedených případech jsou čárkami oddělené hodnoty
+interpretovány jako n-tice. Tuto zkratku ale nelze použít např.
+v parametru podprogramu nebo v seznamovém literálu.
+
+### Rozbalení
+
+Pro práci s n-ticemi budeme často používat tzv. «rozbalení». Nejedná
+se ani o výraz ani o příkaz: je to speciální zápis, který se může
+objevit na «levé straně přiřazení», v cyklu ‹for› a
+v intenzionálních seznamech. Zápisem se podobá na «literál n-tice»,
+ale místo výrazů obsahuje «jména»: ‹(jméno₁, jméno₂, …, jménoₙ)›.
+Podobně jako v literálu lze kulaté závorky vynechat. Můžeme tedy
+psát např.:
+
+    (x, y) = (1, 2)
+    x, y = (1, 2)
+    x, y = 1, 2
+    x, y = point_2d
+    x, y, z = point_3d
+    x, y = y, x
+
+### Příkazy
+
+Pro práci se seznamy se nám budou hodit dvě nové varianty cyklu
+‹for›; první z nich (základní) zapisujeme:
+
+    for vazby in seznam:                         # python
+        příkazy
+
+kde se «výraz» ‹seznam› vyhodnotí na «seznam» a ‹vazby› je buď
+«jméno» nebo «rozbalení». Tělo cyklu (‹příkazy›) se pak provede
+jednou pro každý prvek seznamu ‹seznam›. V ⟦i⟧-té iteraci odpovídají
+‹vazby› ⟦i⟧-tému prvku seznamu ‹seznam›. Je-li ‹seznam› prázdný,
+tělo se neprovede ani jednou.
+
+Rozšířená verze
+
+    for index, vazby in enumerate(seznam):
+        příkazy
+
+má stejný význam jako v předchozím případě, s těmito změnami:
+
+ • ‹index› je «jméno», které váže «index» právě iterovaného prvku
+   v seznamu ‹seznam› (nebo ekvivalentně váže pořadové číslo právě
+   prováděné iterace, počítáno od 0),
+ • v případě, kdy jsou ‹vazby› «rozbalení», musí být uzavřeny
+   v kulatých závorkách (jinými slovy, na tomto místě nelze závorky
+   vynechat).
+
+Dále přidáme dvě nové varianty příkazu «přiřazení»:
+
+ • na levé straně se může krom «jména» objevit také výše popsané
+   «rozbalení»: ‹jméno₁, …, jménoₙ = výraz› s významem analogickým
+   běžnému přiřazení (pouze je dotčeno několik proměnných najednou),
+ • o něco komplikovanější je «přiřazení do prvku seznamu», které
+   zapisujeme jako ‹seznam[index] = výraz› kde ‹seznam› je «jméno» a
+   ‹index› je «výraz» s celočíselnou hodnotou.
+
+Přiřazení do prvku seznamu (nazýváme ho též «vnitřním» přiřazením)
+se ale svým významem od běžného přiřazení podstatě odlišuje: tento
+příkaz «upraví» stávající objekt, který je přiřazen jménu ‹seznam›.
+
+### Výrazy
+
+Krom literálů přibývá se složenými datovými typy ještě několik
+nových výrazů. Prvním z nich je «indexace», která má tvar
+‹seznam[index]›, kde:
+
+ • ‹seznam› je «jméno» proměnné (typu seznam),
+ • ‹index› je aritmetický «výraz» (jeho hodnotou je celé číslo),
+ • výsledkem je hodnota, která je v seznamu ‹jméno› uložena na
+   indexu ⟦i⟧, kde ⟦i⟧ je hodnota, na kterou se vyhodnotil výraz
+   ‹index›.
+
+Například:
+
+    a[0]                                         # python
+    numbers[i + 1]
+    names[compute_index(m, n)]
+
+Dalším novým typem výrazu je «použití (volání) metody», které má
+tvar ‹objekt.metoda(výraz₁, …, výrazₙ)› a je obdobou «použití
+podprogramu» (volání funkce), který je ve speciálním vztahu
+s objektem vázaným ke «jménu» ‹objekt›:
+
+ • nejprve se vyhodnotí parametry ‹výraz₁›, …, ‹výrazₙ›,
+ • provede se volání samotné metody s názvem ‹metoda›,
+ • hodnotou výrazu je «návratová hodnota» volané metody.
+
+Příklady:
+
+    numbers.append(a + 3)                        # python
+    4 + names.pop()
+    left.append(right.pop())
+    numbers.append(min(a, b))
+
+Další dva nové typy výrazů nám umožní zapisovat hodnoty typu seznam:
+
+ • «seznamový literál», který jsme již zavedli výše, nám umožňuje
+   zapsat seznam o pevném počtu prvků, a
+ • «intenzionální seznam», kterého délka může být proměnlivá, ale
+   uložené hodnoty se řídí nějakým předpisem.
+
+«Intenzionální seznam» má tyto tvary:
+
+ • ‹[prvek for jméno in range(počet)]›, kde
+   ◦ ‹počet› je «výraz» s celočíselnou hodnotou,
+   ◦ výsledkem je seznam, který má ‹počet› prvků,
+   ◦ prvek ⟦i⟧ vznikne vyhodnocením výrazu ‹prvek›, přičemž ‹jméno›
+     má pro dané vyhodnocení hodnotu ⟦i⟧ (počínaje nulou),
+ • ‹[prvek for jméno in range(n₁, n₂)]›, je analogický, ale hodnoty
+   vázané na ‹jméno› jsou z intervalu ⟦⟨n₁, n₂)⟧,
+ • ‹[prvek for jméno in rozsah if podmínka]›, kde ‹rozsah› je
+   ‹range(počet)› nebo ‹range(od, do)› a který má stejný význam jako
+   předchozí, ale obsahuje pouze ty prvky, pro které se ‹podmínka›
+   vyhodnotí jako pravdivá,
+ • ‹[prvek for vazby in seznam]›, kde
+   ◦ ‹seznam› je «výraz» typu seznam,
+   ◦ ‹vazby› jsou «rozbalení» nebo «jméno»,
+   ◦ hodnotou je seznam, který má stejný počet prvků jako ‹seznam› a
+   ◦ na ⟦i⟧-té pozici je hodnota, která vznikne vyhodnocením
+     «výrazu» ‹prvek›, přičemž ‹vazby› v každém vyhodnocení
+     odpovídají ⟦i⟧-tému prvku seznamu ‹seznam›,
+ • ‹[prvek for vazby in seznam if podmínka]›, který je
+   opět ekvivalentní předchozímu, ale opět obsahuje pouze ty prvky,
+   pro které se ‹podmínka› vyhodnotí jako pravdivá.
+
+Výrazy ‹podmínka› se v obou případech vyhodnocují se stejnými
+vazbami, jako výraz ‹prvek›. Příklady:
+
+    [1 for i in range(5)]                        # python
+    [i + 1 for i in range(2 * count)]
+    [2 * i for i in range(7) if i != 3]
+    [2 * i for i in numbers]
+    [i ** 2 for i in numbers if i > 0]
+
+Poslední nový typ výrazu je obměnou již známých relačních operátorů:
+výrazy ‹x == y›, ‹x != y›, ‹x < y›, ‹x > y›, ‹x >= y›, ‹x <= y›
+připouštíme i v případech, kdy se «oba» podvýrazy ‹x›, ‹y› vyhodnotí
+na seznamy, nebo se oba vyhodnotí na n-tice. Operátor ‹<› je v tomto
+případě dán «lexikografickým uspořádáním»:
+
+ • je-li ‹x› prefixem ‹y› nebo naopak, jako menší se vyhodnotí
+   hodnota s menším počtem prvků,
+ • jinak nechť je ⟦i⟧ nejmenší index, na kterém se ‹x› a ‹y› liší a
+   ‹xᵢ› a ‹yᵢ› jsou prvky na této pozici; výraz ‹x < y› se vyhodnotí
+   na výsledek srovnání ‹xᵢ < yᵢ›.
+
+Chování ostatních operátorů je již jednoznačně určeno rovností a
+operátorem ‹<›.
+
+### Zabudované podprogramy
+
+Pro práci se složenými datovými typy také přibudou tyto zabudované
+«čisté funkce»:
+
+ • ‹len(x)› – výsledkem je délka (počet prvků) seznamu ‹x›
+   (nezáporné celé číslo),
+ • ‹sum(x)› – výsledkem je suma (součet) všech prvků seznamu ‹x›,
+ • ‹min(x)›, ‹max(x)› – výsledkem je nejmenší (největší) ze všech
+   prvků seznamu ‹x› (je-li seznam prázdný, program je ukončen
+   s chybou).
+
+Pro jednodušší práci s celými čísly přidáváme navíc čistou funkci
+
+ • ‹divmod(x, y)›, které výsledkem je «dvojice» ‹(x // y, x % y)›.
+
+Nakonec máme nově k dispozici tyto zabudované «metody» pro hodnoty
+typu «seznam»:
+
+ • ‹l.append(x)› – přidá hodnotu ‹x› na konec seznamu ‹l›,
+ • ‹l.pop()› – odstraní ze seznamu ‹l› poslední prvek,
+ • ‹l.copy()› – vytvoří a vrátí kopii seznamu ‹l›.
+
+Pozor, metody ‹append› a ‹pop› «nejsou čisté»: modifikují vstupní
+seznam ‹l›.

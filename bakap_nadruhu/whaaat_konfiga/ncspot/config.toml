@@ -1,0 +1,28 @@
+
+use_nerdfont = true
+shuffle = true
+
+[keybindings]
+"Ctrl+p" = "playpause"
+"p" = "noop"
+
+
+
+[theme]
+background = "black"
+primary = "light white"
+secondary = "light black"
+title = "blue"
+playing = "blue"
+playing_selected = "light blue"
+playing_bg = "black"
+highlight = "light white"
+highlight_bg = "#484848"
+error = "light white"
+error_bg = "red"
+statusbar = "black"
+statusbar_progress = "light blue"
+statusbar_bg = "light blue"
+cmdline = "light white"
+cmdline_bg = "black"
+search_match = "light red"

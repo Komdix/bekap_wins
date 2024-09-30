@@ -1,0 +1,48 @@
+## Poziční číselné soustavy
+
+K zápisu čísel v západní civilizaci běžně používáme desítkovou
+soustavu. Desítková soustava je jednou z mnoha tzv. pozičních
+číselných soustav, při kterých se hodnota čísla odvíjí od toho, na
+jaké pozici stojí jaká číslice. Hodnotu čísla získáme tak, že pozice
+číslujeme od nuly zprava, hodnotu každé číslice násobíme základem
+umocněným na pozici a výsledky sečteme.
+
+V desítkové soustavě tedy nejpravější číslici násobíme ⟦10⁰ = 1⟧,
+druhou číslici zprava násobíme ⟦10¹ = 10⟧, třetí zprava ⟦10² = 100⟧
+atd.
+
+Můžeme ovšem za základ vzít i jiné číslo než je desítka. Třeba ve
+trojkové soustavě násobíme číslice zprava hodnotami 1, 3, 9, 27, …
+v sedmičkové soustavě násobíme číslice zprava hodnotami 1, 7, 49, 343.
+
+To, že daný zápis je myšlen v soustavě s jiným základem než ⟦10⟧,
+typicky v matematice značíme uzávorkováním a dolním indexem.
+Například ⟦(321)₇⟧ je zápis čísla 162, protože ⟦3 ⋅ 49 + 2 ⋅ 7 + 1 =
+162⟧.
+
+Důležité je si uvědomit, že čísla (jako abstraktní pojem pro počet)
+jsou úplně nezávislá na zvolené reprezentaci. Pokud bychom se
+vyvinuli jinak a neměli deset prstů, ale třeba jen osm, tak by nám
+desítková soustava připadala bizarní a osmičková jako zcela
+přirozená. (A mimochodem, v historii se taky používala soustava
+dvanáctková nebo šedesátková – zbytek té historie vidíme např. na
+současném systému pro měření času.)
+
+Hlavní myšlenkou zde je to, že ⟦(101)₂ = 5⟧, tedy jde o totéž číslo,
+jen jinak zapsané.
+
+V Pythonu máme standardně možnost používat tyto soustavy:
+
+ • desítkovou (používáme číslice ‹0›, ‹1›, ‹2›, ‹3›, ‹4›, ‹5›, ‹6›,
+   ‹7›, ‹8›, ‹9› a zápis čísel nezačíná žádným speciálním prefixem),
+ • dvojkou (používáme číslice ‹0›, ‹1› a zápis čísel začíná ‹0b›),
+ • osmičkovou (používáme číslice ‹0›, ‹1›, ‹2›, ‹3›, ‹4›, ‹5›, ‹6›,
+   ‹7› a zápis čísel začíná prefixem ‹0o›),
+ • šestnáctkovou (používáme číslice ‹0›, ‹1›, ‹2›, ‹3›, ‹4›, ‹5›,
+   ‹6›, ‹7›, ‹8›, ‹9›, ‹a›, ‹b›, ‹c›, ‹d›, ‹e›, ‹f› a zápis čísel
+   začíná prefixem ‹0x›).
+
+Tedy např. číslo ‹0o321› je číslo ⟦(321)₈ = 209⟧. Totéž číslo se
+taky dá v Pythonu zapsat jako ‹209› nebo ‹0xd1› nebo ‹0b11010001›,
+ale pořád je to stejné číslo, jak dokládá i skutečnost, že výraz
+‹0b11010001 == 209› se vyhodnotí na ‹True›.

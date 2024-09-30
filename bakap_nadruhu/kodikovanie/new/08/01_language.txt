@@ -1,0 +1,17 @@
+## Programovací jazyk
+
+Tato kapitola přináší pouze dva nové prvky (oba souvisí s řazením).
+
+ 1. Zabudovanou čistou funkci ‹sorted(x)›, které výsledkem je nový
+    seznam, který je vzestupně uspořádaný (pro ‹l = sorted(x)› a ‹i
+    <= j› platí ‹l[i] <= l[j]›), a zároveň obsahuje stejné prvky
+    jako ‹x›. Parametr ‹x› může být:
+    
+    ◦ seznam (‹list›),
+    ◦ množina (‹set›),
+    ◦ ‹d.items()›, ‹d.keys()› nebo ‹d.values()› je-li ‹d› hodnota
+      typu slovník (‹dict›).
+
+ 2. Zabudovanou metodu-proceduru ‹l.sort()›, která přeuspořádá
+    seznam ‹l› tak, aby byl vzestupně seřazený (samotné prvky se při
+    tom opět nijak nemění).

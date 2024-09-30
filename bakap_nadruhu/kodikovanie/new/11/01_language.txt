@@ -1,0 +1,186 @@
+## Programovací jazyk
+
+Tato kapitola přidává operace práci s «řetězci». Krom nových
+«výrazů» se drobná rozšíření dotknou i příkazu ‹for› (který můžeme
+použít k procházení řetězce po znacích). Na rozdíl od seznamů ale
+pro řetězce neexistuje vnitřní přiřazení.
+
+Tato kapitola přináší také prostředky pro jednoduchou práci se
+soubory a další interakci s prostředím (zejména operačním systémem).
+
+### Literály
+
+Podobně jako tomu bylo v případě seznamů a n-tic, řetězce můžeme do
+programu zapsat pomocí «řetězcových literálů». Ty mají jeden
+z těchto tvarů: ‹'znaky'›, ‹"znaky"›, ‹"""znaky"""›, ‹'''znaky'''›.
+Významově jsou všechny tyto tvary ekvivalentní: vytvoří hodnotu typu
+řetězec, která obsahuje ‹znaky›.
+
+Pro většinu znaků je obsah vzniklého řetězce totožný se zápisem
+literálu, až na dva druhy výjimek:
+
+ • některé znaky nebo sekvence znaků se v literálech nesmí mimo
+   speciální sekvence objevit:
+   
+   ◦ znak konce řádku v literálech s jednoduchým oddělovačem
+     (‹'znaky'› a ‹"znaky"›),
+   ◦ samotný oddělovač (‹'›, ‹"›, ‹'''›, ‹"""›) použitý pro zápis
+     daného literálu – nebylo by zřejmé, zda se jedná o konec
+     literálu nebo nikoliv,
+   
+ • některé sekvence znaků, které začínají znakem ‹\› (zpětné
+   lomítko) se «přeloží» na jeden znak:
+   
+   ◦ ‹\'›, ‹\"› se přeloží na samotné znaky ‹'› a ‹"›,
+   ◦ ‹\\› se přeloží na znak ‹\›,
+   ◦ ‹\n› se přeloží na znak konce řádku,
+   ◦ ‹\a›, ‹\b›, ‹\f›, ‹\r›, ‹\t›, ‹\v› se přeloží na různé
+     speciální znaky, které v tomto kurzu nebudou důležité,
+   ◦ ‹\NNN› a ‹\xNN›, ‹\uNNNN›, ‹\UNNNNNNNN›, kde ‹N…› je tříciferný
+     osmičkový nebo dvou-, čtyř- nebo osmiciferný šestnáctkový zápis
+     nějakého čísla ⟦n⟧, se přeloží na znak ‹x› který má v tabulce
+     znaků Unicode pozici ⟦n⟧.
+
+Snadno se přesvědčíte, že „zakázané“ znaky resp. sekvence znaků lze
+vždy zapsat nějakým alternativním způsobem pomocí ‹\›-sekvencí.
+
+### Výrazy
+
+Podobně jako seznamy, řetězce lze «indexovat»: zápis je stejný jako
+u seznamů: ‹řetězec[index]›, kde ‹řetězec› je «jméno» a ‹index› je
+celočíselný výraz. Na rozdíl od seznamů, výsledkem indexace je
+v případě řetězce «opět řetězec», který ale obsahuje pouze jediný
+znak.
+
+Dále nově připouštíme relační operátory ‹x == y›, ‹x != y›, ‹x < y›,
+‹x > y›, ‹x <= y›, ‹x >= y› i v případě, kdy se podvýrazy ‹x› a ‹y›
+oba vyhodnotí na řetězce. Uspořádání je dáno «lexikograficky».
+
+### Příkazy
+
+Jediný nový příkaz, který souvisí s řetězci, je
+
+    for ch in řetězec:                         # python
+        příkazy
+
+kde ‹ch› je «jméno» a ‹řetězec› je «výraz», který se vyhodnotí na
+hodnotu typu řetězec. Podobně jako ostatní varianty příkazu ‹for›,
+tento provede sekvenci ‹příkazy› jednou pro každý znak uložený
+v řetězci ‹řetězec›. Jméno ‹ch› je přitom v ⟦i⟧-té iteraci vázáno na
+jednopísmenný řetězec odpovídající znaku na ⟦i⟧-té pozici hodnoty
+‹řetězec›.
+
+Pro práci se soubory (a dalšími zdroji, o kterých ale v tomto
+předmětu nebude řeč) budeme krom zabudovaného podprogramu ‹open›
+(vysvětleno níže) slouží také příkaz ‹with› – je obvyklé je používat
+vždy společně, a to ve tvaru:
+
+    with open(cesta, režim) as název:               # python
+        příkazy
+
+Tato konstrukce nám umožní se souborem pracovat v těle příkazu
+‹with› pomocí jména ‹název› (stejně, jako kdybychom přiřadili
+výsledek volání ‹open› do proměnné), ale navíc máme zaručeno, že po
+opuštění tohoto bloku je práce se souborem korektně ukončena.
+
+Takto otevřený a pojmenovaný soubor můžeme «iterovat» již dobře
+známým příkazem ‹for›:
+
+    for řádek in soubor:
+        příkazy
+
+kde ‹řádek› je jméno a ‹soubor› je výsledek volání ‹open› (obvykle
+vázaný příkazem ‹with›). Ke jménu ‹řádek› budou postupně vázány
+hodnoty typu ‹str›, které obsahují vždy jeden řádek souboru (včetně
+ukončovacího znaku ‹'\n'›). Cyklus je ukončen po přečtení posledního
+řádku.
+
+### Zabudované podprogramy
+
+Objekty typu řetězec navíc poskytují tyto «zabudované metody» (ve
+všech případech jsou zároveň «čistými funkcemi» – vstupní řetězec
+nikdy nemodifikují):
+
+ • ‹s.isupper()›, ‹s.islower()› – predikáty, vyhodnotí se na ‹True›
+   v případě, že všechny abecední znaky v řetězci ‹s› jsou velká
+   (resp. malá) písmena,
+ • ‹s.isalpha()›, ‹s.isdecimal()› – predikáty, které se vyhodnotí na
+   ‹True› sestává-li ‹s› pouze z abecedních znaků (‹isalpha›) resp.
+   desítkových číslic (‹isdecimal›),
+ • ‹s.upper()›, ‹s.lower()› – vyhodnotí se na řetězec, který vznikne
+   ze ‹s› nahrazením všech abecedních znaků na odpovídající velká
+   (‹upper›) resp. malá (‹lower›) písmena,
+ • ‹s.split(delim)› – vyhodnotí se na «seznam», který vznikne
+   rozdělením ‹s› na podřetězce oddělovačem ‹delim› (oddělovače
+   nejsou součástí výsledných řetězců),
+ • ‹s.join(parts)› – vyhodnotí se na řetězec, který vznikne vložením
+   řetězce ‹s› mezi každé dva řetězce uložené v «seznamu» ‹parts›,
+ • ‹s.replace(from, to)› – vyhodnotí se na řetězec, který vznikne
+   ze ‹s› substitucí všech výskytů podřetězce ‹from› za podřetězec
+   ‹to›,
+ • ‹s.rstrip()› – vyhodnotí se na řetězec, který vznikne odstraněním
+   všech pravostranných bílých znaků (zejména mezer a znaků konce
+   řádku).
+
+Jak bylo naznačeno výše, práci se soubory nám umožňuje zabudovaný
+podprogram ‹open(cesta, režim)›¹. Parametr ‹cesta› (typu řetězec)
+určuje kde v souborovém systému se má hledat soubor, se kterým
+chceme pracovat, řetězec ‹režim› pak určuje jakým způsobem hodláme
+soubor používat. Základní možnosti jsou tyto:
+
+ • ‹'r'› – režim pouze pro čtení nám umožní ze souboru číst textová
+   data, ale nic dalšího,
+ • ‹'w'› – režim pro zápis textu, kdy je soubor při otevření zkrácen
+   na nulovou délku (z takto otevřeného souboru nelze číst),
+ • ‹'x'› – jako ‹'w'›, ale soubor je prvně vytvořen (v případě, že
+   již existuje, je program ukončen s chybou),
+ • ‹'a'› – jako ‹'w'›, ale soubor není zkrácen, nová data jsou
+   zapisována na konec souboru.
+
+Tyto základní možnosti lze kombinovat se specifikátorem ‹'t'› nebo
+‹'b'›, který určí, chceme-li se souborem pracovat v «textovém» nebo
+«binárním» režimu. Neuvedeme-li ani jedno z nich, implicitní je
+textový režim. V tomto předmětu se omezíme na textový režim.
+
+S hodnotou ‹f›, které vznikne voláním podprogramu ‹open› v textovém
+režimu, můžeme použít také několik zabudovaných metod:
+
+ • ‹f.close()› – ukončí práci se souborem (obvykle «nepoužíváme»,
+   ukončení provedeme místo toho správným použitím příkazu ‹with›),
+ • ‹f.read(n)› – přečte nejvýše ‹n› znaků a vrátí je jako hodnotu
+   typu ‹str›,
+ • ‹f.readline()› – přečte znaky od aktuální pozice až do konce
+   řádku a vrátí je jako hodnotu typu ‹str›,
+ • ‹f.readlines()› – přečte celý zbytek souboru po řádcích,
+   výsledkem je hodnota typu ‹list›, která obsahuje pro každý
+   přečtený řádek jednu položku typu ‹str›,
+ • ‹f.write(s)› – zapíše řetězec ‹s› (t.j. hodnotu typu ‹str›) do
+   souboru.
+
+¹ Nejedná se v tomto případě ani o čistou funkci, ale ani
+  o klasickou proceduru.
+
+### Knihovny
+
+Většina funkcionality pro interakci s vnějším světem je k dispozici
+formou knihoven (obdoba knihovny ‹math›, kterou známe z první
+kapitoly). Zde uvádíme pouze stručný přehled, bližší informace
+k použití jednotlivých knihoven získáte v 11. přednášce. Použití
+knihovny je potřeba vždy na začátku souboru deklarovat řádkem
+
+    from knihovna import jméno₁, jméno₂, …          # python
+
+K dispozici máme tyto knihovny:
+
+ • ‹gzip› – práce s komprimovanými soubory ‹*.gz›,
+    ◦ ‹open› – otevře komprimovaný soubor (dále s ním lze pracovat
+      jako s obyčejným souborem, liší se ale implicitním použitím
+      binárního režimu) – voláme pomocí příkazu ‹with›,
+ • ‹csv› – práce s textovými soubory, které obsahují tabulky hodnot
+   oddělené čárkou (nebo jiným oddělovačem),
+ • ‹sys› – obecná interakce se systémem:
+   ◦ ‹argv› – seznam hodnot typu ‹str›, které byly programu předány
+     při spuštění na příkazové řádce,
+ • ‹os› – další podprogramy (zejména procedury) pro práci se
+   systémem (‹cesta› je hodnota typu ‹str›):
+   ◦ ‹remove(cesta)› – odstraní (smaže) soubor,

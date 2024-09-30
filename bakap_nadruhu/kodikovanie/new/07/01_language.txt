@@ -1,0 +1,89 @@
+## Programovací jazyk
+
+Tato kapitola přináší možnost definovat vlastní (uživatelské) datové
+typy. K tomuto účelu zavedeme nový typ «definice». Definice datového
+typu musí stát vně jakékoliv jiné definice (tedy na stejné úrovni
+jako definice funkcí, které jsme doteď znali).
+
+Definice typu má následovný tvar:
+
+    class Třída:                                    # python
+        def __init__(self, param₁: typ₁, …, paramₙ: typₙ) -> None:
+            tělo
+        def metoda₁(self, param₁: typ₁, …, paramₙ: typₙ) -> typ:
+            tělo
+        …
+
+Uvnitř «definice typu» se tedy může objevit definice «inicializační
+funkce» a «definice metod» (a nic jiného). Tyto definice se v obou
+případech velmi podobají na definice funkcí – základním rozdílem
+(krom toho, kde stojí) je povinný první parametr s názvem ‹self›.
+
+### Vytváření hodnot
+
+V případě inicializační funkce (povinně nazvané ‹__init__›)
+reprezentuje parametr ‹self› nový objekt, který je potřeba
+inicializovat (zejména nastavit počáteční hodnoty atributů).
+
+Nové «hodnoty» uživatelského typu ‹Třída› se vytvoří následovným
+«výrazem»:
+
+    Třída(výraz₁, …, výrazₙ)                        # python
+
+Protože se jedná o výraz, lze jej použít jako podvýraz v jiných
+výrazech, nebo třeba v přiřazovacím příkazu na pravé straně takto:
+
+    objekt = Třída(výraz₁, …, výrazₙ)               # python
+
+Tento výraz krom samotného vytvoření objektu zavolá inicializační
+funkce ‹__init__›, s následovnými vazbami formálních parametrů:
+
+ • ‹self› se váže na «nově vznikající objekt»,
+ • ‹param₁› se váže na hodnotu výrazu ‹výraz₁›, atd.,
+ • ‹paramₙ› se váže na hodnotu výrazu ‹výrazₙ›.
+
+### Atributy
+
+Hlavním úkolem inicializační funkce je nastavit počáteční hodnoty
+«atributů» nového objektu. Atributy se velmi podobají proměnným,
+nejsou ale svázané s aktuálně vykonávanou funkcí, ale s objektem.
+Přístup k atributům objektu je «výraz», který se podobá na použití
+metody. Např.:
+
+    person.weight                                   # python
+    bmi = person.weight / person.height ** 2
+    d = sqrt(point.x ** 2 + point.y ** 2)
+
+Objekty mají určitou podobnost s n-ticemi, které již dobře známe:
+sdružují několik hodnot (potenciálně různých typů) do jedné. Mají
+ale i dvě zásadní odlišnosti:
+
+ • atributy objektů jsou «pojmenované» (jsou určeny jmény, nikoliv
+   pořadím),
+ • objekty mají «vnitřní přiřazení» – vazbu atributu na hodnotu lze
+   měnit (použitím přiřazovacího příkazu).
+
+Přiřazení do atributu je příkaz, který se podobá na ostatní druhy
+přiřazení, které známe (zejména na vnitřní přiřazení do seznamu nebo
+slovníku):
+
+    objekt.atribut = výraz                          # python
+
+kde ‹objekt› a ‹atribut› jsou «jména». Významem je změna vazby
+atributu (na hodnotu, která vznikne vyhodnocením výrazu ‹výraz›).
+
+### Metody
+
+V metodách parametr ‹self› reprezentuje objekt, na kterém byla
+metoda použita. Tedy při použití metody (druh «výrazu», který již
+známe u zabudovaných typů):
+
+    objekt.metoda₁(výraz₁, …, výrazₙ)
+
+se vážou formální parametry na skutečné parametry takto:
+
+ • ‹self› se váže na hodnotu ‹objekt›,
+ • ‹param₁› se váže na hodnotu výrazu ‹výraz₁›, atd.,
+ • ‹paramₙ› se váže na hodnotu výrazu ‹výrazₙ›.
+
+Jinak jsou metody stejné jako obyčejné funkce.

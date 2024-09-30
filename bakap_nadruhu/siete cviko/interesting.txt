@@ -1,0 +1,15 @@
+Inovation in protocol QUIC (Quick UDP Internet Connections)
+
+QUIC is modern network protocol originaly made by Google and and then standardized by 
+organization IETF (Internet Engineering Task Force). It is build on UDP and is designed 
+to provide faster and more secure comunication of web aplications. Its key function is ability 
+to combine phase of making connection and data transfer. this significantly fasten the latency
+during the connection. 
+
+QUIC also makes a strong emphasis on security. Integrates encryption on transport layer
+(TLS) as a standard feature. this deffers from TCP which has TLS as an option not a necessity.
+This feature ensures that all comunications with QUIC are secure. Additionally QUIC improves 
+reliability over TCP by allowing independent flow control in multiple streams, enhancing overall
+communications reliability. This innovation has a impact on the application layer. It could 
+lead to more responsive and secure applications, and improve user experience in web browsing and
+content streaming.

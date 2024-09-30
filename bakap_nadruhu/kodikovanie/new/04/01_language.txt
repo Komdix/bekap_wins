@@ -1,0 +1,54 @@
+## Programovací jazyk
+
+Hlavní novinkou této kapitoly jsou «typové anotace». Ty se dotknou
+zejména definice funkce a příkazu přiřazení. Rozšířený zápis
+definice funkce má následovný tvar:
+
+def podprogram(p₁: typ₁, p₂: typ₂, …, pₙ: typₙ) -> typᵣ:
+    příkazy
+
+Příkaz přiřazení dostane nový tvar, konkrétně:
+
+    jméno: typ = výraz
+
+Význam všech anotací tvaru ‹jméno: typ› (tzn. jak v parametrech
+funkcí, tak v přiřazení) je „‹jméno› «vždy» váže hodnotu typu
+‹typ›“. Význam anotace ‹-> typ› v definici funkce má pak význam
+„návratová hodnota funkce je «vždy» typu ‹typ›“. Pravdivost těchto
+tvrzení pak (staticky) ověří program ‹mypy›, jak již bylo naznačeno
+v úvodě.
+
+### Typy
+
+Na místě ‹typ› se ve výše uvedených formách může objevit:
+
+ • jednoduchý typ:
+   
+   ◦ ‹bool› – hodnota je ‹True› nebo ‹False›,
+   ◦ ‹int› – hodnota je celé číslo,
+   ◦ ‹float› – hodnota je číslo s plovoucí desetinnou čárkou,
+   ◦ ‹str› – hodnota je řetězec,
+   ◦ ‹None› – hodnota je ‹None›,
+ 
+ • složený typ, který vznikne použitím «typového konstruktoru»
+   (‹tuple›, ‹list›, atp.) a «typových parametrů» (píšeme
+   v hranatých závorkách za konstruktor; v těchto závorkách ‹typ›
+   představuje opět cokoliv z tohoto seznamu):
+   
+   ◦ ‹tuple[typ₁, typ₂, …, typₙ]› – hodnota je ⟦n⟧-tice a její
+     ⟦i⟧-tá složka je typu ‹typᵢ›,
+   ◦ ‹list[typ]› – hodnota je seznam, kterého «každý» prvek je
+     typu ‹typ›,
+
+ • tzv. volitelný typ, který vznikne zápisem ‹typ | None›, popisuje
+   hodnotu, která může být typu ‹typ›, nebo může být ‹None› (ale nic
+   jiného)¹,
+ • nebo tzv. «typový alias», tedy ‹jméno›, které je přiřazením
+   svázáno s konkrétním typem (jména typových aliasů začínají velkým
+   písmenem):
+   
+       TypovýAlias = typ
+
+¹ Zápis pomocí „svislítka“ ‹|› umožňuje i obecnější typy, v tuto
+  chvíli se ale omezíme na tvar ‹typ | None›. Komplikovanější typy
+  tohoto tvaru zavedeme v sedmé kapitole.

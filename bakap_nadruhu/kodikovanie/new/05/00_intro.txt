@@ -1,0 +1,15 @@
+# Datové struktury I
+
+V této kapitole se budeme opět zabývat zabudovanými datovými
+strukturami: z třetí kapitoly již známe «seznam» a «n-tici», tento
+týden přibudou «zásobník» (stack), «slovník» (dictionary) a
+«množina» (set).
+
+Přípravy:
+
+ 1. ‹attendance›   – práce s množinou
+ 2. ‹worktime›     – práce se slovníkem
+ 3. ‹sublist›      – algoritmus nad seznamy čísel
+ 4. ‹sum›          – hledání součtu ve dvojici seznamů
+ 5. ‹course›       – práce se slovníkem známek
+ 6. ‹divisors›     – tabulace počtu společných dělitelů

@@ -1,0 +1,15 @@
+# S.2. Sada úloh k druhému bloku
+
+V druhém bloku jsou následující domácí úkoly:
+
+ • ‹a_connect_four› – hra Connect Four,
+ • ‹b_warehouse› – práce se zbožím ve skladu,
+ • ‹c_robot› – simulace pohybu robota,
+ • ‹d_life› – celulární automat ve stylu „Game of Life“,
+ • ‹e_stock_exchange› – vypořádání pokynů na burze,
+ • ‹f_tetris› – hra Tetris.
+
+První dva úkoly vyžadují pouze základní použití seznamů (z prvního
+bloku), další dva úkoly k tomu přidávají datové struktury z páté
+kapitoly a poslední dva úkoly navíc využívají uživatelsky definované
+datové typy (třídy).

@@ -1,0 +1,22 @@
+Overview of protocol WebRTC
+
+WebRTC is an opensource project, which provides a realtime comunication to web browsers and 
+mobile apps, without need of an server. This protocol supports video, voice and generic data,
+which can be sent between peers, which makes it suitable to apps for vidoe chats, voice calls,
+filesharing and livestreaming
+
+USAGE:
+WebRTC is implemented in aplication layer and primarly used in apps for web comunication. 
+It is intergrated without problems with HTML5 and can be used on desktop and mobile devices.
+
+Key functions:
+- peer to peer comunication: connects 2 users and lowers the latency and quality of data 
+trasfer
+- encryption : all components of WebRTC is encrypted, this provides secure comunication.
+
+Aplications:
+
+WebRTC is widely used on comunication platforms like Google Meet, Facebook Messenger and more.
+Due to its versatility and secureness in handling real-time multimedia.
+
+Further info about WebRTC on its official page : https://webrtc.org/

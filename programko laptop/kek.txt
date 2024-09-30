@@ -1,0 +1,14 @@
+def fun(a: int, b: int) -> int:
+    x, y = a, b
+    while x > 0:
+        x //= 2
+        y //= 2
+    return y
+Která tvrzení o vztahu mezi vstupy a výstupy této funkce jsou pravdivá?
+(Právě dvě správné odpovědi.)
+Pokud  -  b > a >= 0, pak fun(a, b) > 0.
+Pokud  -  b < a <= 0, pak fun(a, b) < 0.
+Pokud  -  a >= b >= 0, pak fun(a, b) == 0.
+Pokud  -  b < a <= 0, pak fun(a, b) nikdy neskončí.
+Pokud  -  b > a >= 0, pak fun(a, b) == 0.
+Pokud  -  a >= b >= 0, pak fun(a, b) < 0.

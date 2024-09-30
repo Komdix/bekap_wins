@@ -1,0 +1,57 @@
+# Číselné algoritmy
+
+Tento týden pokračujeme v programování s čísly (první setkání se
+složitějšími datovými typy nás čeká příští týden). Tentokrát si
+naprogramujeme řadu jednoduchých algoritmů, které si vystačí
+s konstrukcemi, které již známe: cykly ‹for› a ‹while›, podmíněnými
+příkazy ‹if›, proměnnými, a definicemi čistých funkcí. Významnější
+roli budou hrát i čísla s plovoucí desetinnou čárkou – typ ‹float›.
+
+To, co bude tento týden nové je, že algoritmy, které budeme
+programovat, budou mít složitější strukturu, budou používat více
+proměnných a budou se typicky více větvit. V tomto týdnu byste si
+tedy z cvičení měli odnést základní dovednosti algoritmizace a
+v tomto kontextu si procvičit použití a zápis konstrukcí, které
+znáte z prvních dvou přednášek.
+
+V neposlední řadě dojde tento týden i na základy dekompozice:
+některé algoritmy, které budeme programovat, bude vhodné rozložit na
+podprogramy. Podobně jako minulý týden, budeme tento týden pracovat
+pouze s čistými funkcemi: kdykoliv v příkladech pro tento týden
+zmíníme funkci, myslíme tím implicitně funkci čistou.
+
+Ukázky:
+
+ 1. ‹descending› – ⟦n⟧-tá cifra čísla
+ 2. ‹comb›       – kombinační čísla, ‹for› a ‹while›
+ 3. ‹triangle›   – řešení trojúhelníků (desetinná čísla)
+
+Elementární příklady:
+
+ 1. ‹palindrome› – je číslo palindrom?
+ 2. ‹gcd›        – největší společný dělitel (naivně)
+ 3. ‹digits›     – počet cifer v posloupnosti
+
+Přípravy:
+
+ 1. ‹digit_sum›  – variace na ciferný součet
+ 2. ‹joined›     – posloupnost čísel
+ 3. ‹fraction›   – převod na řetězcový zlomek
+ 4. ‹maximum›    – lokální maximum na intervalu
+ 5. ‹credit›     – ověření korektnosti čísla platební karty
+ 6. ‹workdays›   – počet pracovních dnů v roce
+
+Rozšířené úlohy:
+
+ 1. ‹savings›    – úročení a inflace
+ 2. ‹fridays›    – počet pátků 13. v zadaném roce
+ 3. ‹delete›     – umazávání cifer z čísla
+ 4. ‹cards›      – visa, mastercard
+ 5. ‹bisect› †   – aproximace kořenů
+ 6. ‹parasitic› –  ⟦k⟧-parazitní čísla
+
+Volitelné úlohy:
+
+ 1. ‹rivendell›  – čísla z Groglinky
+ 2. ‹palindrome› – elfí číselné palindromy
+ 3. ‹zwelf›      – cvelfí ciferné míchání

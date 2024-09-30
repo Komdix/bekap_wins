@@ -1,0 +1,66 @@
+## Programovací jazyk
+
+Tato kapitola přidává několik odvozených operací na seznamech a
+množinách. Pozor, tyto operace mají «lineární» složitost.
+
+### Výrazy
+
+Z minulé kapitoly známe operace:
+
+    hodnota in množina                              # python
+    klíč in slovník
+
+Nyní přidáme analogické dotazy tohoto tvaru na přítomnost hodnoty
+v seznamu: ‹hodnota in seznam› (zde ‹seznam› je opět podvýraz), ale
+musíme si pamatovat, že pro «seznam» tento dotaz «není efektivní»:
+obsahuje skrytou iteraci potenciálně všemi prvky seznamu.
+
+Pro «množiny» připouštíme nově tyto tvary výrazů (kde ‹množina₁› a
+‹množina₂› jsou vždy «podvýrazy», které se musí vyhodnotit na
+hodnoty typu množina):
+
+ • ‹množina₁ | množina₂› se vyhodnotí na «sjednocení»,
+ • ‹množina₁ & množina₂› se vyhodnotí na «průnik» a
+ • ‹množina₁ - množina₂› se vyhodnotí na «rozdíl» příslušných
+   množin.
+
+Konečně pro «seznamy» přidáváme výraz tvaru ‹seznam₁ + seznam₂› (kde
+‹seznam₁› a ‹seznam₂› jsou opět podvýrazy), který se vyhodnotí na
+«nový seznam» s prvky z prvního i druhého seznamu (nejprve všechny
+prvky levého operandu, pak všechny prvky pravého, vždy v původním
+pořadí).
+
+### Zabudované podprogramy
+
+Objekty typu «množina» získají tyto nové zabudované metody:
+
+ • ‹s₁.update(s₂)› – «přidá» do množiny ‹s₁› všechny prvky, které se
+   «nachází» v ‹s₂› (v ‹s₁› tak bude po provedení operace sjednocení
+   obou množin),¹
+ • ‹s₁.intersection_update(s₂)› – «odebere» z množiny ‹s₁› všechny
+   prvky, které se «nenachází» v ‹s₂› (v ‹s₁› tedy bude po provedení
+   průnik),
+ • ‹s₁.difference_update(s₂)› – «odebere» z množiny ‹s₁› všechny
+   prvky, které se «nachází» v ‹s₂› (v ‹s₁› tedy bude po provedení
+   rozdíl).
+
+Přidáme také několik zabudovaných metod pro práci se seznamy.
+«Pozor» všechny tyto metody jsou «ekvivalentní iteraci» – nelze tedy
+jejich použitím ušetřit výpočetní čas, jsou jen syntaktickou
+zkratkou pro obšírnější ‹for› cyklus:
+
+ • ‹l.reverse()› – otočí pořadí prvků v seznamu,
+ • ‹l.index(v)› – vyhodnotí se na index, na kterém se nachází
+   hodnota ‹v› (je-li takových více, výsledkem je ten nejmenší;
+   není-li takový žádný, program je ukončen s chybou),
+ • ‹l₁.extend(l₂)› – přidá na konec seznamu ‹l₁› všechny prvky ze
+   seznamu ‹l₂› (ve stejném pořadí),
+ • ‹l.insert(i, v)› – vloží «před» index ‹i› hodnotu ‹v› (tedy
+   hodnoty na indexech ‹j ≥ i› přesune o jednu pozici doprava a na
+   index ‹i› uloží hodnotu ‹v›),
+ • ‹l.pop(i)› – odstraní hodnotu z indexu ‹i› (a tedy všechny
+   hodnoty na vyšších indexech přesune o jednu pozici doleva).
+
+¹ Pozor, ‹s₁.update(s₂)› «není» totéž, jako ‹s₁ = s₁ | s₂› – první
+  operace vnitřně změní existující hodnotu ‹s₁›, ta druhá vytvoří
+  «novou množinu» a výsledek sváže se jménem ‹s₁›.

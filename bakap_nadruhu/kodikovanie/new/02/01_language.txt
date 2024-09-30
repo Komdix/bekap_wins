@@ -1,0 +1,6 @@
+## Programovací jazyk
+
+Tato kapitola používá stejné jazykové prostředky a zabudované
+podprogramy jako kapitola první. Přibyla pouze jediná knihovní
+(čistá) funkce, a to ‹factorial(n)› z knihovny ‹math›, pro přímý
+výpočet faktoriálu přirozeného čísla ‹n›.
