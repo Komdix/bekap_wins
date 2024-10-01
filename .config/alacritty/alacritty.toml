@@ -1,0 +1,25 @@
+[window]
+padding = {x = 4, y = 4}
+opacity = 0.8
+blur = true
+title = "cooker"
+
+[font.bold]
+family = "FiraMono Nerd Font"
+style = "Bold"
+
+[font.bold_italic]
+family = "FiraMono Nerd Font"
+style = "Bold Italic"
+
+[font.italic]
+family = "FiraMono Nerd Font"
+style = "Italic"
+
+[font.normal]
+family = "FiraMono Nerd Font"
+style = "Regular"
+
+[mouse]
+hide_when_typing = true
+
